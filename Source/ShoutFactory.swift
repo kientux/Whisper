@@ -199,7 +199,7 @@ open class ShoutView: UIView {
 
   // MARK: - Actions
 
-  open func silent() {
+  open func silent(_ action: (() -> Void)? = nil) {
     UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
         self.frame.size.height += 4
     }) { (finished) in
@@ -207,6 +207,7 @@ open class ShoutView: UIView {
             self.frame.size.height = 0
         }) { (finished) in
             self.frame.origin.y = 0
+            action?()
             self.completion?()
             self.displayTimer.invalidate()
             self.removeFromSuperview()
@@ -227,8 +228,7 @@ open class ShoutView: UIView {
 
   @objc fileprivate func handleTapGestureRecognizer() {
     guard let announcement = announcement else { return }
-    announcement.action?()
-    silent()
+    silent(announcement.action)
   }
   
   @objc private func handlePanGestureRecognizer() {
