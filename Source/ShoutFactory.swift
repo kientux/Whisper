@@ -153,7 +153,7 @@ open class ShoutView: UIView {
   // MARK: - Setup
 
   public func setupFrames() {
-    internalHeight = (UIApplication.shared.isStatusBarHidden ? 55 : 65)
+    internalHeight = (UIApplication.shared.isStatusBarHidden ? 48 : 58)
 
     let totalWidth = UIScreen.main.bounds.width
     let offset: CGFloat = UIApplication.shared.isStatusBarHidden ? 2.5 : 5
