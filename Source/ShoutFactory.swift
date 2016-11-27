@@ -16,7 +16,6 @@ open class ShoutView: UIView {
   open fileprivate(set) lazy var backgroundView: UIView = {
     let view = UIView()
     view.backgroundColor = ColorList.Shout.background
-    view.alpha = 0.98
     view.clipsToBounds = true
 
     return view
@@ -97,7 +96,7 @@ open class ShoutView: UIView {
     layer.shadowColor = UIColor.black.cgColor
     layer.shadowOffset = CGSize(width: 0, height: 0.5)
     layer.shadowOpacity = 0.1
-    layer.shadowRadius = 0.5
+    layer.shadowRadius = 2
 
     backgroundView.addGestureRecognizer(tapGestureRecognizer)
     addGestureRecognizer(panGestureRecognizer)
