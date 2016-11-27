@@ -140,8 +140,13 @@ open class ShoutView: UIView {
     controller.view.addSubview(self)
 
     frame.size.height = 0
-    UIView.animate(withDuration: 0.35, animations: {
-      self.frame.size.height = self.internalHeight + Dimensions.touchOffset
+    UIView.animate(withDuration: 0.75,
+                   delay: 0,
+                   usingSpringWithDamping: 0.75,
+                   initialSpringVelocity: 10,
+                   options: .init(rawValue: 0),
+                   animations: {
+                    self.frame.size.height = self.internalHeight + Dimensions.touchOffset
     })
   }
 
@@ -195,13 +200,18 @@ open class ShoutView: UIView {
   // MARK: - Actions
 
   open func silent() {
-    UIView.animate(withDuration: 0.35, animations: {
-      self.frame.size.height = 0
-      }, completion: { finished in
-        self.completion?()
-        self.displayTimer.invalidate()
-        self.removeFromSuperview()
-    })
+    UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+        self.frame.size.height += 4
+    }) { (finished) in
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            self.frame.size.height = 0
+        }) { (finished) in
+            self.frame.origin.y = 0
+            self.completion?()
+            self.displayTimer.invalidate()
+            self.removeFromSuperview()
+        }
+    }
   }
 
   // MARK: - Timer methods
@@ -245,15 +255,21 @@ open class ShoutView: UIView {
 
       subtitleLabel.numberOfLines = 2
       subtitleLabel.sizeToFit()
-      
-      UIView.animate(withDuration: 0.2, animations: {
-        self.frame.size.height = height + Dimensions.touchOffset
-      }, completion: { _ in
-          if translation.y < -5 {
-            self.completion?()
-            self.removeFromSuperview()
-        }
-      })
+        
+        UIView.animate(withDuration: 0.7,
+                       delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 10,
+                       options: .init(rawValue: 0),
+                       animations: {
+                        self.frame.size.height = height + Dimensions.touchOffset
+        },
+                       completion: { (complete) in
+                        if translation.y < -5 {
+                            self.completion?()
+                            self.removeFromSuperview()
+                        }
+        })
     }
   }
 
