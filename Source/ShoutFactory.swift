@@ -11,6 +11,7 @@ open class ShoutView: UIView {
     public static let imageOffset: CGFloat = 18
     public static var textOffset: CGFloat = 75
     public static var touchOffset: CGFloat = 40
+    public static let heightOffset: CGFloat = 24
   }
 
   open fileprivate(set) lazy var backgroundView: UIView = {
@@ -84,7 +85,7 @@ open class ShoutView: UIView {
 
   public override init(frame: CGRect) {
     super.init(frame: frame)
-
+    
     addSubview(backgroundView)
     [imageView, titleLabel, subtitleLabel, indicatorView].forEach {
       $0.autoresizingMask = []
@@ -95,8 +96,8 @@ open class ShoutView: UIView {
     isUserInteractionEnabled = true
     layer.shadowColor = UIColor.black.cgColor
     layer.shadowOffset = CGSize(width: 0, height: 0.5)
-    layer.shadowOpacity = 0.1
-    layer.shadowRadius = 2
+    layer.shadowOpacity = 0.12
+    layer.shadowRadius = 3
 
     backgroundView.addGestureRecognizer(tapGestureRecognizer)
     addGestureRecognizer(panGestureRecognizer)
@@ -139,14 +140,14 @@ open class ShoutView: UIView {
   open func shout(to controller: UIViewController) {
     controller.view.addSubview(self)
 
-    frame.size.height = 0
-    UIView.animate(withDuration: 0.75,
+    frame.origin.y = -frame.height
+    UIView.animate(withDuration: 0.7,
                    delay: 0,
-                   usingSpringWithDamping: 0.75,
+                   usingSpringWithDamping: 0.8,
                    initialSpringVelocity: 10,
                    options: .init(rawValue: 0),
                    animations: {
-                    self.frame.size.height = self.internalHeight + Dimensions.touchOffset
+                    self.frame.origin.y = -Dimensions.heightOffset
     })
   }
 
@@ -156,7 +157,7 @@ open class ShoutView: UIView {
     internalHeight = (UIApplication.shared.isStatusBarHidden ? 48 : 58)
 
     let totalWidth = UIScreen.main.bounds.width
-    let offset: CGFloat = UIApplication.shared.isStatusBarHidden ? 2.5 : 5
+    let offset: CGFloat = UIApplication.shared.isStatusBarHidden ? 2.5 : 5 + Dimensions.heightOffset
     let textOffsetX: CGFloat = imageView.image != nil ? Dimensions.textOffset : 18
     let imageSize: CGFloat = imageView.image != nil ? Dimensions.imageSize : 0
 
@@ -170,7 +171,7 @@ open class ShoutView: UIView {
     imageView.frame = CGRect(x: Dimensions.imageOffset, y: (internalHeight - imageSize) / 2 + offset,
       width: imageSize, height: imageSize)
 
-    let textOffsetY = imageView.image != nil ? imageView.frame.origin.x + 3 : textOffsetX + 5
+    let textOffsetY = (imageView.image != nil ? imageView.frame.origin.x + 3 : textOffsetX + 5) + Dimensions.heightOffset
 
     titleLabel.frame.origin = CGPoint(x: textOffsetX, y: textOffsetY)
     subtitleLabel.frame.origin = CGPoint(x: textOffsetX, y: titleLabel.frame.maxY + 2.5)
@@ -179,7 +180,7 @@ open class ShoutView: UIView {
       titleLabel.center.y = imageView.center.y - 2.5
     }
 
-    frame = CGRect(x: 0, y: 0, width: totalWidth, height: internalHeight + Dimensions.touchOffset)
+    frame = CGRect(x: 0, y: 0, width: totalWidth, height: internalHeight + Dimensions.touchOffset + Dimensions.heightOffset)
   }
 
   // MARK: - Frame
@@ -201,12 +202,11 @@ open class ShoutView: UIView {
 
   open func silent(_ action: (() -> Void)? = nil) {
     UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
-        self.frame.size.height += 4
+        self.frame.origin.y += 4
     }) { (finished) in
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
-            self.frame.size.height = 0
+            self.frame.origin.y = -self.frame.height
         }) { (finished) in
-            self.frame.origin.y = 0
             action?()
             self.completion?()
             self.displayTimer.invalidate()
@@ -245,9 +245,9 @@ open class ShoutView: UIView {
       
       if translation.y >= maxTranslation {
         frame.size.height = internalHeight + maxTranslation
-          + (translation.y - maxTranslation) / 25 + Dimensions.touchOffset
+          + (translation.y - maxTranslation) / 25 + Dimensions.touchOffset + Dimensions.heightOffset
       } else {
-        frame.size.height = internalHeight + translation.y + Dimensions.touchOffset
+        frame.size.height = internalHeight + translation.y + Dimensions.touchOffset + Dimensions.heightOffset
       }
     } else {
       panGestureActive = false
@@ -262,7 +262,7 @@ open class ShoutView: UIView {
                        initialSpringVelocity: 10,
                        options: .init(rawValue: 0),
                        animations: {
-                        self.frame.size.height = height + Dimensions.touchOffset
+                        self.frame.size.height = height + Dimensions.touchOffset + Dimensions.heightOffset
         },
                        completion: { (complete) in
                         if translation.y < -5 {
