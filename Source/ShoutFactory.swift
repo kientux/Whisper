@@ -134,12 +134,14 @@ open class ShoutView: UIView {
     displayTimer = Timer.scheduledTimer(timeInterval: announcement.duration,
       target: self, selector: #selector(ShoutView.displayTimerDidFire), userInfo: nil, repeats: false)
 
-    setupFrames()
+//    setupFrames()
   }
 
   open func shout(to controller: UIViewController) {
     controller.view.addSubview(self)
-
+    
+    setupFrames(controller)
+    
     frame.origin.y = -frame.height
     UIView.animate(withDuration: 0.7,
                    delay: 0,
@@ -153,8 +155,8 @@ open class ShoutView: UIView {
 
   // MARK: - Setup
 
-  public func setupFrames() {
-    internalHeight = (UIApplication.shared.isStatusBarHidden ? 48 : 58)
+  public func setupFrames(_ vc: UIViewController? = nil) {
+    internalHeight = (UIApplication.shared.isStatusBarHidden ? 48 : 58) + (vc?.topLayoutGuide.length ?? 0)
 
     let totalWidth = UIScreen.main.bounds.width
     let offset: CGFloat = UIApplication.shared.isStatusBarHidden ? 2.5 : 5 + Dimensions.heightOffset

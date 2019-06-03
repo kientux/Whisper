@@ -18,6 +18,16 @@
 		D5170D641C4955F3006F2F37 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5170D631C4955F3006F2F37 /* Config.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		417D6D6922940C1200DEA7A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 417D6D6522940C0E00DEA7A6 /* WhisperDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 417D6D5022940C0800DEA7A6;
+			remoteInfo = WhisperDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		290530F91C20511C00FB382C /* Whisper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Whisper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		290531071C20517E00FB382C /* ColorList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorList.swift; sourceTree = "<group>"; };
@@ -28,6 +38,7 @@
 		2905310C1C20517E00FB382C /* WhisperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhisperView.swift; sourceTree = "<group>"; };
 		2905310D1C20517E00FB382C /* WhistleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhistleFactory.swift; sourceTree = "<group>"; };
 		290531171C2051F400FB382C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		417D6D6522940C0E00DEA7A6 /* WhisperDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WhisperDemo.xcodeproj; path = WhisperDemo/WhisperDemo.xcodeproj; sourceTree = "<group>"; };
 		D2D71BB71D54B62B006AB907 /* Showing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Showing.swift; sourceTree = "<group>"; };
 		D5170D631C4955F3006F2F37 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,6 +57,7 @@
 		290530EF1C20511C00FB382C = {
 			isa = PBXGroup;
 			children = (
+				417D6D6522940C0E00DEA7A6 /* WhisperDemo.xcodeproj */,
 				290531161C2051F400FB382C /* SupportFiles */,
 				290531041C20517E00FB382C /* Source */,
 				290530FA1C20511C00FB382C /* Products */,
@@ -90,6 +102,14 @@
 				290531171C2051F400FB382C /* Info.plist */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		417D6D6622940C0E00DEA7A6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				417D6D6A22940C1200DEA7A6 /* WhisperDemo.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,12 +170,28 @@
 			mainGroup = 290530EF1C20511C00FB382C;
 			productRefGroup = 290530FA1C20511C00FB382C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 417D6D6622940C0E00DEA7A6 /* Products */;
+					ProjectRef = 417D6D6522940C0E00DEA7A6 /* WhisperDemo.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				290530F81C20511C00FB382C /* Whisper-iOS */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		417D6D6A22940C1200DEA7A6 /* WhisperDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = WhisperDemo.app;
+			remoteRef = 417D6D6922940C1200DEA7A6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		290530F71C20511C00FB382C /* Resources */ = {
