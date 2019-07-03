@@ -35,7 +35,7 @@ open class ShoutView: UIView {
     let imageView = UIImageView()
     imageView.layer.cornerRadius = Dimensions.imageSize / 2
     imageView.clipsToBounds = true
-    imageView.contentMode = .scaleAspectFill
+    imageView.contentMode = .center
 
     return imageView
     }()
